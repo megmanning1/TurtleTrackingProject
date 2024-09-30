@@ -24,17 +24,26 @@ line_list = file_object.readlines()
 file_object.close()
 
 #Pretend we read one line of data from the file
-lineString = line_list[200]
+#lineString = line_list[200]
 
-#Split the string into a list of data items
-lineData = lineString.split()
+#Read all lines of code with for loop
+#With [17:] --> this means start at line 18 and skip the first 17
+#If file changes and you don't want to just skip the first lines then we can use more robust code - add 
+for lineString in line_list:
+    #check if line is a data line - this is more robust than skipping 1st 17 lines...
+    if lineString[0] in ("#", "u"):
+        continue
 
-#Extract items in list into variables
-record_id = lineData[0]
-obs_date = lineData[2]
-obs_lc = lineData[4]
-obs_lat = lineData[6]
-obs_lon = lineData[7]
+    #Split the string into a list of data items
+    #Tabbed all lines below to include them into for loop
+    lineData = lineString.split()
 
-#Print the location of sara
-print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+    #Extract items in list into variables
+    record_id = lineData[0]
+    obs_date = lineData[2]
+    obs_lc = lineData[4]
+    obs_lat = lineData[6]
+    obs_lon = lineData[7]
+
+    #Print the location of sara
+    print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
