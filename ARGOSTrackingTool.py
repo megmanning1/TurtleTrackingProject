@@ -17,17 +17,25 @@ file_name = './data/raw/sara.txt'
 #Create a file object from the file
 file_object = open(file_name,'r')
 
-#Read contents of file into a list - use readline instead of readlines to only read one line
-lineString = file_object.readline()
+#Read contents of file into a list
+line_list = file_object.readlines()
+
+#Close the file
+file_object.close()
 
 #Pretend we read one line of data from the file
-while lineString:
-    # check if line is a data line
+#lineString = line_list[200]
+
+#Read all lines of code with for loop
+#With [17:] --> this means start at line 18 and skip the first 17
+#If file changes and you don't want to just skip the first lines then we can use more robust code - add 
+for lineString in line_list:
+    #check if line is a data line - this is more robust than skipping 1st 17 lines...
     if lineString[0] in ("#", "u"):
-        lineString = file_object.readline()
         continue
 
     #Split the string into a list of data items
+    #Tabbed all lines below to include them into for loop
     lineData = lineString.split()
 
     #Extract items in list into variables
@@ -39,6 +47,3 @@ while lineString:
 
     #Print the location of sara
     print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
-
-    #Read next line
-    lineString = file_object.readline()
