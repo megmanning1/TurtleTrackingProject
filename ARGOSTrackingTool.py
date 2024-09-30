@@ -23,18 +23,17 @@ line_list = file_object.readlines()
 #Close the file
 file_object.close()
 
-#Initalize dictionaries
+#Initialize dictionaries
 date_dict = {}
 location_dict = {}
 
-#Read all lines of code with for loop
+#Pretend we read one line of data from the file
 for lineString in line_list:
-    #check if line is a data line - this is more robust than skipping 1st 17 lines...
-    if lineString[0] in ("#", "u"):
+    # Check if line is a data line
+    if lineString[0] in ("#","u"):
         continue
 
     #Split the string into a list of data items
-    #Tabbed all lines below to include them into for loop
     lineData = lineString.split()
 
     #Extract items in list into variables
@@ -44,9 +43,11 @@ for lineString in line_list:
     obs_lat = lineData[6]
     obs_lon = lineData[7]
 
-    #Add items to disctionaries 
-    date_dict[record_id] = obs_date
-    location_dict[record_id] = (obs_lat, obs_lon)
-
+    #Determine if location class criteria is met
+    if obs_lc in ("1","2","3"):
+        #Add items to dictionaries
+        date_dict[record_id] = obs_date
+        location_dict[record_id] = (obs_lat, obs_lon)
+    
     #Print the location of sara
     #print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
